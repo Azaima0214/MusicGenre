@@ -9,26 +9,26 @@ key_path = "your_key_path"
 @app.route("/")
 def index():
 	return render_template("index.html")
-    
+
 @app.route("/predict" , methods=['POST', 'OPTIONS'])
 def predict():
 
 	if request.method == "OPTIONS": # CORS Preflight
 		return _build_cors_prelight_response()
-	elif request.method == "POST": 
+	elif request.method == "POST":
 		file = request.files['file']
 		fileName = file.filename
-		file.save("/home/dev/DnoIshi/data/" + fileName)
-	
+		file.save("your_directry" + fileName)
+
 		import predict_music
 		pr = predict_music.predict_music()
 		pr.load_file(fileName)
 		result= pr.predict_genre()
 		response =  jsonify({'genre' : result})
 		return _corsify_actual_response(response)
-		
+
 	return "Error"
-	
+
 def _build_cors_prelight_response():
 	response = make_response()
 	response.headers.add("Access-Control-Allow-Origin", "*")
