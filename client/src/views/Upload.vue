@@ -59,7 +59,7 @@ export default {
       let formData = new FormData();
       formData.append('file', this.file);
       let result = "nothing"
-      await this.$axios.post('/predict',
+      await this.$axios.post('yoururl',
         formData,
         {
           headers: {
